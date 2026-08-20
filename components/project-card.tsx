@@ -34,14 +34,18 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
         <p className="project-lede">{project.shortDescription}</p>
         <details className="project-details">
           <summary>View project details</summary>
-          <p className="project-description">{project.description}</p>
-          {project.highlights?.length ? (
-            <ul className="project-highlights" aria-label={`${project.title} highlights`}>
-              {project.highlights.map((highlight) => (
-                <li key={highlight}>{highlight}</li>
-              ))}
-            </ul>
-          ) : null}
+          <div className="project-details-body">
+            <div className="project-details-inner">
+              <p className="project-description">{project.description}</p>
+              {project.highlights?.length ? (
+                <ul className="project-highlights" aria-label={`${project.title} highlights`}>
+                  {project.highlights.map((highlight) => (
+                    <li key={highlight}>{highlight}</li>
+                  ))}
+                </ul>
+              ) : null}
+            </div>
+          </div>
         </details>
         <ul className="tag-list" aria-label={`${project.title} technologies`}>
           {project.technologies.map((technology) => (
