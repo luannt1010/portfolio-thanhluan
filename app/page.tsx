@@ -51,16 +51,7 @@ export default function Home() {
   }, [activateTab]);
 
   function navigate(href: string) {
-    const nextTab = tabFromHash(href);
-    const startViewTransition = (
-      document as Document & { startViewTransition?: (callback: () => void) => void }
-    ).startViewTransition;
-
-    if (startViewTransition) {
-      startViewTransition.call(document, () => activateTab(nextTab));
-    } else {
-      activateTab(nextTab);
-    }
+    activateTab(tabFromHash(href));
   }
 
   function renderActivePanel() {

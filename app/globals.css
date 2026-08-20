@@ -5,7 +5,7 @@
   --paper: #f5f9ff;
   --paper-deep: #e6effc;
   --ink: #10243f;
-  --muted: #63738b;
+  --muted: #4f627d;
   --soft: #ffffff;
   --accent: #2563eb;
   --accent-ink: #ffffff;
@@ -22,7 +22,7 @@
   --paper: #071426;
   --paper-deep: #0d203a;
   --ink: #eff6ff;
-  --muted: #9bacc3;
+  --muted: #b3c2d6;
   --soft: #0c1d34;
   --accent: #72a7ff;
   --accent-ink: #061225;
@@ -53,6 +53,9 @@ body {
     radial-gradient(circle at 92% 22%, var(--wash-secondary), transparent 34rem);
   background-attachment: fixed;
   font-family: var(--font-sans);
+  font-kerning: normal;
+  font-synthesis: none;
+  font-feature-settings: "kern" 1, "liga" 1;
   text-rendering: optimizeLegibility;
   transition: color 0.3s ease, background-color 0.3s ease;
 }
@@ -63,6 +66,12 @@ h3,
 .brand {
   font-family: var(--font-display);
   font-optical-sizing: auto;
+  text-wrap: balance;
+}
+
+p,
+li {
+  text-wrap: pretty;
 }
 
 body::before {
@@ -268,8 +277,8 @@ img {
   margin: 28px 0 0;
   font-size: clamp(3.8rem, 6vw, 6.4rem);
   font-weight: 730;
-  line-height: 0.92;
-  letter-spacing: -0.078em;
+  line-height: 0.98;
+  letter-spacing: -0.058em;
 }
 
 .hero h1 em,
@@ -283,8 +292,8 @@ img {
   max-width: 590px;
   margin: 28px 0 0;
   color: var(--muted);
-  font-size: clamp(0.95rem, 1.2vw, 1.08rem);
-  line-height: 1.72;
+  font-size: clamp(1rem, 1.2vw, 1.1rem);
+  line-height: 1.78;
 }
 
 .hero-actions {
@@ -429,15 +438,14 @@ img {
 
 .tab-panel {
   min-height: calc(100svh - 184px);
-  view-transition-name: portfolio-panel;
 }
 
 .tab-panel[data-direction="forward"] {
-  animation: panel-enter-forward 0.55s cubic-bezier(0.2, 0.75, 0.2, 1) both;
+  animation: panel-enter-forward 0.58s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .tab-panel[data-direction="backward"] {
-  animation: panel-enter-backward 0.55s cubic-bezier(0.2, 0.75, 0.2, 1) both;
+  animation: panel-enter-backward 0.58s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .panel-section,
@@ -453,19 +461,6 @@ img {
 
 .panel-subsection-last {
   padding-bottom: 4px;
-}
-
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation: none;
-}
-
-::view-transition-old(portfolio-panel) {
-  animation: panel-exit 0.34s ease both;
-}
-
-::view-transition-new(portfolio-panel) {
-  animation: panel-enter-forward 0.55s cubic-bezier(0.2, 0.75, 0.2, 1) both;
 }
 
 .section-heading {
@@ -502,8 +497,8 @@ img {
   margin: 0;
   font-size: clamp(2.25rem, 4.2vw, 4.1rem);
   font-weight: 660;
-  line-height: 0.98;
-  letter-spacing: -0.065em;
+  line-height: 1.04;
+  letter-spacing: -0.045em;
 }
 
 .section-description {
@@ -872,8 +867,8 @@ img {
   margin: 32px 0 13px;
   font-size: clamp(1.8rem, 2.8vw, 2.7rem);
   font-weight: 650;
-  line-height: 0.98;
-  letter-spacing: -0.065em;
+  line-height: 1.05;
+  letter-spacing: -0.045em;
 }
 
 .project-lede {
@@ -1121,8 +1116,8 @@ img {
   margin: 34px 0 0;
   font-size: clamp(3.5rem, 7vw, 6.4rem);
   font-weight: 650;
-  line-height: 0.87;
-  letter-spacing: -0.08em;
+  line-height: 0.96;
+  letter-spacing: -0.055em;
 }
 
 .contact-shell > p:not(.contact-kicker) {
@@ -1207,13 +1202,13 @@ img {
 
 .hero-enter {
   opacity: 0;
-  animation: hero-rise 0.75s cubic-bezier(0.2, 0.75, 0.2, 1) forwards;
+  animation: hero-rise 0.68s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-.hero-delay-1 { animation-delay: 0.05s; }
-.hero-delay-2 { animation-delay: 0.14s; }
-.hero-delay-3 { animation-delay: 0.24s; }
-.hero-delay-4 { animation-delay: 0.34s; }
+.hero-delay-1 { animation-delay: 0.04s; }
+.hero-delay-2 { animation-delay: 0.1s; }
+.hero-delay-3 { animation-delay: 0.17s; }
+.hero-delay-4 { animation-delay: 0.24s; }
 
 @supports (animation-timeline: view()) {
   .reveal {
@@ -1224,7 +1219,7 @@ img {
 }
 
 @keyframes hero-rise {
-  from { opacity: 0; transform: translateY(22px); }
+  from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
@@ -1234,18 +1229,13 @@ img {
 }
 
 @keyframes panel-enter-forward {
-  from { opacity: 0; transform: translateX(34px) scale(0.99); }
-  to { opacity: 1; transform: translateX(0) scale(1); }
+  from { opacity: 0; transform: translateX(18px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes panel-enter-backward {
-  from { opacity: 0; transform: translateX(-34px) scale(0.99); }
-  to { opacity: 1; transform: translateX(0) scale(1); }
-}
-
-@keyframes panel-exit {
-  from { opacity: 1; transform: scale(1); }
-  to { opacity: 0; transform: scale(0.985); }
+  from { opacity: 0; transform: translateX(-18px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes float {
