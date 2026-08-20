@@ -1,4 +1,6 @@
-import type { CSSProperties } from "react";
+"use client";
+
+import { useId, useState, type CSSProperties } from "react";
 import type { Project } from "@/data/portfolio";
 
 type ProjectCardProps = {
@@ -8,6 +10,8 @@ type ProjectCardProps = {
 
 export function ProjectCard({ project, index }: ProjectCardProps) {
   const style = { "--project-accent": project.accent } as CSSProperties;
+  const [detailsOpen, setDetailsOpen] = useState(false);
+  const detailsId = useId();
 
   return (
     <article className="project-card" style={style}>
@@ -32,9 +36,21 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
         </div>
         <h3>{project.title}</h3>
         <p className="project-lede">{project.shortDescription}</p>
-        <details className="project-details">
-          <summary>View project details</summary>
-          <div className="project-details-body">
+        <div className={`project-details ${detailsOpen ? "is-open" : ""}`}>
+          <button
+            className="project-details-toggle"
+            type="button"
+            aria-expanded={detailsOpen}
+            aria-controls={detailsId}
+            onClick={() => setDetailsOpen((open) => !open)}
+          >
+            View project details
+          </button>
+          <div
+            className="project-details-body"
+            id={detailsId}
+            aria-hidden={!detailsOpen}
+          >
             <div className="project-details-inner">
               <p className="project-description">{project.description}</p>
               {project.highlights?.length ? (
@@ -46,7 +62,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
               ) : null}
             </div>
           </div>
-        </details>
+        </div>
         <ul className="tag-list" aria-label={`${project.title} technologies`}>
           {project.technologies.map((technology) => (
             <li key={technology}>{technology}</li>
