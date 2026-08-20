@@ -1,6 +1,4 @@
-"use client";
-
-import { useId, useState, type CSSProperties } from "react";
+import type { CSSProperties } from "react";
 import type { Project } from "@/data/portfolio";
 
 type ProjectCardProps = {
@@ -10,8 +8,6 @@ type ProjectCardProps = {
 
 export function ProjectCard({ project, index }: ProjectCardProps) {
   const style = { "--project-accent": project.accent } as CSSProperties;
-  const [detailsOpen, setDetailsOpen] = useState(false);
-  const detailsId = useId();
 
   return (
     <article className="project-card" style={style}>
@@ -31,37 +27,20 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
 
       <div className="project-content">
         <div className="project-meta">
-          <span>{project.category}</span>
+          <span>Project {String(index + 1).padStart(2, "0")} · {project.category}</span>
           <span>{project.period}</span>
         </div>
         <h3>{project.title}</h3>
         <p className="project-lede">{project.shortDescription}</p>
-        <div className={`project-details ${detailsOpen ? "is-open" : ""}`}>
-          <button
-            className="project-details-toggle"
-            type="button"
-            aria-expanded={detailsOpen}
-            aria-controls={detailsId}
-            onClick={() => setDetailsOpen((open) => !open)}
-          >
-            View project details
-          </button>
-          <div
-            className="project-details-body"
-            id={detailsId}
-            aria-hidden={!detailsOpen}
-          >
-            <div className="project-details-inner">
-              <p className="project-description">{project.description}</p>
-              {project.highlights?.length ? (
-                <ul className="project-highlights" aria-label={`${project.title} highlights`}>
-                  {project.highlights.map((highlight) => (
-                    <li key={highlight}>{highlight}</li>
-                  ))}
-                </ul>
-              ) : null}
-            </div>
-          </div>
+        <div className="project-details">
+          <p className="project-description">{project.description}</p>
+          {project.highlights?.length ? (
+            <ul className="project-highlights" aria-label={`${project.title} highlights`}>
+              {project.highlights.map((highlight) => (
+                <li key={highlight}>{highlight}</li>
+              ))}
+            </ul>
+          ) : null}
         </div>
         <ul className="tag-list" aria-label={`${project.title} technologies`}>
           {project.technologies.map((technology) => (
