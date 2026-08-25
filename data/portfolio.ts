@@ -409,16 +409,17 @@ export const portfolio = {
     },
     {
       name: "Machine Learning",
-      issuer: "IBM",
+      issuer: "Coursera",
       platform: "Coursera",
       credentials: [
         {
-          label: "Classification",
-          url: "https://coursera.org/share/1b9a86a1719afe8d8fbd9553f9f0b8e2",
+          label:
+            "Supervised Machine Learning: Regression and Classification — DeepLearning.AI",
+          url: "https://coursera.org/share/ac62f8057b13139cc3184c88b2c777f0",
         },
         {
-          label: "Regression",
-          url: "https://coursera.org/share/20c95f4612b943fd39fe44f1afe459dc",
+          label: "Unsupervised Machine Learning — IBM",
+          url: "https://coursera.org/share/534b6a0f908c53d1fad58ea53d9ffc9b",
         },
       ],
     },
