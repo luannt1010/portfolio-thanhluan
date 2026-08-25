@@ -125,7 +125,7 @@ export const portfolio = {
   ] as ContactItem[],
   stats: [
     { value: "2027", label: "Expected graduation" },
-    { value: "6", label: "End-to-end AI projects" },
+    { value: "7", label: "End-to-end AI projects" },
     { value: "8.4/10", label: "Current GPA" },
   ],
   skills: [
@@ -257,6 +257,34 @@ export const portfolio = {
       period: "Personal Project",
       featured: true,
       accent: "#e2552f",
+    },
+    {
+      slug: "rag-scientific-papers",
+      title: "RAG-based Question Answering for Scientific Papers",
+      category: "Natural Language Processing · RAG",
+      shortDescription:
+        "An in-progress RAG system for grounded question answering over scientific papers and PDF documents.",
+      description:
+        "A baseline retrieval-augmented generation pipeline covering document parsing, text chunking, embedding generation, hybrid retrieval, and grounded response generation.",
+      highlights: [
+        "Developed a baseline RAG pipeline for answering questions over scientific papers and PDF documents, covering document parsing, text chunking, embedding generation, retrieval, and grounded response generation.",
+        "Experimented with multiple chunking configurations and embedding models to analyze and improve retrieval relevance.",
+        "Implemented hybrid retrieval combining semantic vector search with keyword-based search.",
+        "Currently exploring reranking, query rewriting, and systematic RAG evaluation; an interactive demo is planned.",
+      ],
+      technologies: [
+        "Python",
+        "LangChain",
+        "PostgreSQL",
+        "pgvector",
+        "Ollama",
+        "Hugging Face",
+      ],
+      githubUrl:
+        "https://github.com/luannt1010/ai-research-paper-assistant.git",
+      period: "Personal Project · In Progress",
+      featured: true,
+      accent: "#7c3aed",
     },
     {
       slug: "real-time-sketch-recognition",
