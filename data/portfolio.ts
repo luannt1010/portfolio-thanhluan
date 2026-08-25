@@ -414,7 +414,7 @@ export const portfolio = {
       credentials: [
         {
           label:
-            "Supervised Machine Learning: Regression and Classification — DeepLearning.AI",
+            "Supervised Machine Learning — DeepLearning.AI",
           url: "https://coursera.org/share/ac62f8057b13139cc3184c88b2c777f0",
         },
         {
