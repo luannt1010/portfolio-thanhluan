@@ -154,7 +154,7 @@ export const portfolio = {
     {
       category: "Natural Language Processing",
       summary: "Vietnamese language modeling, retrieval, and text processing.",
-      items: ["PhoBERT", "RAG", "Transformers", "PyVi"],
+      items: ["PhoBERT", "RAG", "LangChain", "Transformers", "PyVi"],
     },
     {
       category: "Data Processing & Visualization",
