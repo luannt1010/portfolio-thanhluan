@@ -77,7 +77,7 @@ export const portfolio = {
       "Final-year Artificial Intelligence student at FPT University, focused on Computer Vision, NLP, and building end-to-end AI applications from model training to deployment.",
     currentFocus: "Computer Vision, NLP, and end-to-end AI systems.",
     profileNote: "Final-year AI student at FPT University",
-    resumeUrl: "https://drive.google.com/file/d/1Qk6RLn06pGduFtio-qfdBiXLqK7MDr1d/view?usp=sharing",
+    resumeUrl: "https://drive.google.com/file/d/1yj-b6fWXApvNq_YZ0pKfr_YhR9hzhGha/view?usp=sharing",
     aboutTitle: "Final-year AI student building practical intelligent systems.",
     bio: [
       "I am a final-year Artificial Intelligence student at FPT University, focused on building practical AI systems across computer vision, natural language processing, and machine learning.",
