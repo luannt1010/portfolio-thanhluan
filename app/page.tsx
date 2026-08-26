@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
-import { ProjectCard } from "@/components/project-card";
+import { ProjectDeck } from "@/components/project-deck";
 import { SectionHeading } from "@/components/section-heading";
 import { portfolio } from "@/data/portfolio";
 
@@ -210,11 +210,7 @@ export default function Home() {
             title="Systems, products, and experiments made to matter."
             description="A selection of work across applied AI, developer infrastructure, and human-centered software."
           />
-          <div className="projects-list">
-            {portfolio.projects.map((project, index) => (
-              <ProjectCard project={project} index={index} key={project.slug} />
-            ))}
-          </div>
+          <ProjectDeck projects={portfolio.projects} />
         </section>
       );
     }
