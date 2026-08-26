@@ -77,7 +77,7 @@ export const portfolio = {
       "Final-year Artificial Intelligence student at FPT University, focused on Computer Vision, NLP, and building end-to-end AI applications from model training to deployment.",
     currentFocus: "Computer Vision, NLP, and end-to-end AI systems.",
     profileNote: "Final-year AI student at FPT University",
-    resumeUrl: "https://drive.google.com/file/d/1yj-b6fWXApvNq_YZ0pKfr_YhR9hzhGha/view?usp=sharing",
+    resumeUrl: "https://drive.google.com/file/d/1zO5E0MlzlVhOFndDKDT7FEFiapbWKhSc/view?usp=sharing",
     aboutTitle: "Final-year AI student building practical intelligent systems.",
     bio: [
       "I am a final-year Artificial Intelligence student at FPT University, focused on building practical AI systems across computer vision, natural language processing, and machine learning.",
@@ -186,10 +186,10 @@ export const portfolio = {
       description:
         "Contributed to the development of an automated robotic spray-painting system that integrates 2D/3D vision, point cloud processing, conveyor tracking, and robotic path planning.",
       highlights: [
-        "Developed 2D-to-3D processing using a 3D camera.",
-        "Processed 3D point clouds for object geometry extraction.",
-        "Implemented conveyor tracking to compensate for moving objects.",
-        "Contributed to spray path generation and robot motion planning.",
+        "Contributed to the development of an automated robotic spray-painting system, integrating Computer Vision, 3D Vision, and robot motion planning.",
+        "Participated in developing a 2D-to-3D processing pipeline using 3D cameras to reconstruct object geometry and prepare 3D data for downstream spray-path planning.",
+        "Supported the implementation of conveyor tracking to estimate object motion and synchronize detected objects with the robot’s spraying process.",
+        "Worked with point-cloud and 3D geometric data to support object localization and adaptive spray-path generation.",
         "Integrated vision outputs into the automated spraying pipeline.",
       ],
     },
