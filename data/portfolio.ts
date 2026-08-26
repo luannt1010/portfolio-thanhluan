@@ -125,7 +125,7 @@ export const portfolio = {
   ] as ContactItem[],
   stats: [
     { value: "2027", label: "Expected graduation" },
-    { value: "7", label: "End-to-end AI projects" },
+    { value: "7", label: "Personal AI Projects" },
     { value: "8.4/10", label: "Current GPA" },
   ],
   skills: [
@@ -211,6 +211,7 @@ export const portfolio = {
         "An end-to-end real-time multi-face recognition system for registration, tracking, and identity matching.",
       description:
         "A modular computer vision pipeline that combines deep face embeddings, real-time tracking, vector search, API services, and a desktop interface.",
+      image: "/images/projects/face-recognition-system.webp",
       highlights: [
         "Developed an end-to-end real-time multi-face recognition system using PyTorch and OpenCV, integrating SCRFD detection, face alignment, ByteTrack tracking, and cosine similarity matching.",
         "Built and trained 512-dimensional face embedding models using MobileFaceNet, ResNet, and iResNet with ArcFace, AdaFace, and Triplet Loss, achieving 92.63% training accuracy, 91.37% validation accuracy, and TAR@FAR=1% of 87.72% on the training set and 85.27% on the validation set.",
@@ -240,6 +241,7 @@ export const portfolio = {
         "An automatic license plate recognition pipeline built specifically for Vietnamese vehicles.",
       description:
         "The system detects single-line and two-line plates, recognizes their characters, and exposes practical desktop and command-line workflows for image and video processing.",
+      image: "/images/projects/vietnamese-alpr.png",
       highlights: [
         "Developed an end-to-end ALPR pipeline for Vietnamese vehicles, combining Faster R-CNN and YOLO11n for plate detection with fine-tuned DeepSeek-OCR for character recognition.",
         "Trained and evaluated a Faster R-CNN detector for single-line and two-line license plates, achieving 96.46% mAP@50 and 76.88% mAP@50:95.",
@@ -266,6 +268,7 @@ export const portfolio = {
         "An in-progress RAG system for grounded question answering over scientific papers and PDF documents.",
       description:
         "A baseline retrieval-augmented generation pipeline covering document parsing, text chunking, embedding generation, hybrid retrieval, and grounded response generation.",
+      image: "/images/projects/rag-scientific-papers.jpg",
       highlights: [
         "Developed a baseline RAG pipeline for answering questions over scientific papers and PDF documents, covering document parsing, text chunking, embedding generation, retrieval, and grounded response generation.",
         "Experimented with multiple chunking configurations and embedding models to analyze and improve retrieval relevance.",
@@ -294,6 +297,7 @@ export const portfolio = {
         "A web-based system that recognizes hand-drawn objects from a canvas or live camera feed.",
       description:
         "A full-stack recognition workflow centered on a custom residual CNN, with real-time hand tracking and a feedback loop for collecting corrected predictions.",
+      image: "/images/projects/real-time-sketch-recognition.avif",
       highlights: [
         "Developed an end-to-end hand-drawn sketch recognition system using a custom residual CNN in PyTorch, integrated with a Django REST API and React web application.",
         "Processed and augmented 12,500 balanced images across 25 object classes, implemented OpenCV-based stroke normalization, and trained a three-block CNN that achieved 90% accuracy and a 91% F1-score.",
@@ -320,6 +324,7 @@ export const portfolio = {
         "A multi-task PyTorch system for oriented object detection, semantic segmentation, and video tracking in aerial imagery.",
       description:
         "An end-to-end research prototype for 15 DOTA classes, combining a custom multi-scale architecture, exact rotated geometry, experiment management, and a desktop inference application.",
+      image: "/images/projects/dota-multiscale-obb-segmentation.png",
       highlights: [
         "Built an end-to-end PyTorch pipeline that jointly predicts oriented bounding boxes and semantic segmentation masks for 15 object classes in the DOTA v1.0 aerial imagery dataset.",
         "Designed an approximately 15.03M-parameter architecture with an LSKNet-style backbone, FPN, fine/context dual-flow features, bidirectional cross-attention, and a dynamic scale gate.",
@@ -349,6 +354,7 @@ export const portfolio = {
         "A Vietnamese news clickbait classifier supporting headlines, article URLs, and batch inference.",
       description:
         "An end-to-end Vietnamese NLP pipeline that combines word segmentation, a fine-tuned PhoBERT model, web content extraction, and accessible prediction tools.",
+      image: "/images/projects/vietnamese-clickbait-detection.webp",
       highlights: [
         "Developed an end-to-end Vietnamese clickbait detection pipeline using PyVi word segmentation and fine-tuned PhoBERT.",
         "Processed and consolidated 6,186 multi-source news articles, addressed class imbalance, and constructed combined inputs from titles, lead paragraphs, and article content, achieving 83.55% accuracy and an 83.55% F1-score on the test set.",
@@ -376,6 +382,7 @@ export const portfolio = {
         "A collection of six hands-on projects spanning classical machine learning, mathematical foundations, and computer vision.",
       description:
         "A learning-focused repository that connects algorithms implemented from scratch with practical regression, classification, image reconstruction, and YOLOv8-style object detection workflows.",
+      image: "/images/projects/machine-learning-foundations.png",
       highlights: [
         "Built six projects covering YOLOv8-style license plate detection, insurance cost and house price regression, cat recognition, Iris classification, and PCA-based image reconstruction.",
         "Implemented Logistic Regression, K-Nearest Neighbors, binary SVM, Principal Component Analysis, and Gradient Descent from mathematical foundations using NumPy.",
