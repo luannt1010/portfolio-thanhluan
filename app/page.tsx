@@ -220,19 +220,15 @@ export default function Home() {
         <section className="content-section section-shell panel-section" id="certificates-panel" role="tabpanel" aria-labelledby="certificates-tab">
           <SectionHeading index="01" eyebrow="Certificates" title="Structured learning, applied in the real world." />
           <div className="certificate-grid">
-            {portfolio.certificates.map((certificate, index) => (
-              <article className="certificate-card" key={certificate.name}>
-                <div className="certificate-visual">
-                  {certificate.image ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img src={certificate.image} alt={`${certificate.name} certificate`} />
-                  ) : (
-                    <div className="certificate-mark" aria-hidden="true">
-                      <span>{String(index + 1).padStart(2, "0")}</span>
-                      <i>✓</i>
-                    </div>
-                  )}
-                </div>
+              {portfolio.certificates.map((certificate) => (
+                <article className="certificate-card" key={certificate.name}>
+                  <div className="certificate-visual">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={certificate.image ?? "/images/certificates/certificate-thumbnail.jpg"}
+                      alt={`${certificate.name} certificate`}
+                    />
+                  </div>
                 <div className="certificate-copy">
                   <p>
                     {[certificate.issuer, certificate.platform !== certificate.issuer ? certificate.platform : null, certificate.issueDate]
