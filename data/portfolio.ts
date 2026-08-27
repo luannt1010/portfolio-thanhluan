@@ -125,7 +125,7 @@ export const portfolio = {
   ] as ContactItem[],
   stats: [
     { value: "2027", label: "Expected graduation" },
-    { value: "7", label: "Personal AI Projects" },
+    { value: "8", label: "Personal AI Projects" },
     { value: "8.4/10", label: "Current GPA" },
   ],
   skills: [
@@ -373,6 +373,41 @@ export const portfolio = {
       period: "Personal Project",
       featured: true,
       accent: "#9b5de5",
+    },
+    {
+      slug: "lung-colorectal-cancer-recognition",
+      title: "Cancer Recognition Using CNN",
+      category: "Deep Learning · Medical Image Classification",
+      shortDescription:
+        "A research CNN system for classifying lung and colorectal histopathology images across five tissue classes.",
+      description:
+        "Co-developed an educational research prototype that uses a deep convolutional neural network to classify lung and colorectal histopathology images, exploring how AI can support consistent preliminary image analysis while remaining explicitly separate from professional medical diagnosis.",
+      image: "/images/projects/cancer-detection.avif",
+      highlights: [
+        "Served as Machine Learning Developer in a two-member team, building a TensorFlow and Keras architecture with 13 convolutional layers across five feature-extraction blocks and approximately 21.15 million trainable parameters.",
+        "Prepared the balanced 25,000-image LC25000 dataset with stratified 80/10/10 splits, 224 × 224 RGB resizing, and augmentation using rotation, flipping, shifting, zoom, and brightness adjustment.",
+        "Trained for 20 epochs with Adamax, a 0.001 learning rate, batch size 64, and categorical cross-entropy, achieving 99.56% test accuracy, 0.0131 loss, and a weighted F1-score of 0.9956 with 11 errors across 2,500 test images.",
+        "Analyzed confusion between lung adenocarcinoma and lung squamous cell carcinoma, compared the model with a roughly 75%-accuracy three-layer CNN baseline, and documented the need for independent clinical validation before any real-world use.",
+      ],
+      technologies: [
+        "Python",
+        "TensorFlow",
+        "Keras",
+        "NumPy",
+        "Pandas",
+        "Scikit-learn",
+        "Pillow",
+        "Matplotlib",
+        "Seaborn",
+        "Jupyter Notebook",
+        "Data Augmentation",
+        "Medical Image Classification",
+      ],
+      githubUrl:
+        "https://github.com/luannt1010/Lung-Colon-Detection-Project.git",
+      period: "Machine Learning Developer · Team of 2",
+      featured: true,
+      accent: "#be123c",
     },
     {
       slug: "machine-learning-foundations",
