@@ -135,6 +135,26 @@ img {
   justify-content: space-between;
 }
 
+.case-study-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.case-study-back-link {
+  padding: 10px 13px;
+  color: rgba(244, 248, 255, 0.82);
+  font-size: 0.82rem;
+  font-weight: 750;
+  border-radius: 999px;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.case-study-back-link:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
 .brand {
   position: relative;
   z-index: 3;
@@ -191,10 +211,6 @@ img {
 
 .main-nav > a.is-active::after {
   transform: scaleX(1);
-}
-
-.mobile-contact {
-  display: none;
 }
 
 .nav-actions {
@@ -850,7 +866,6 @@ img {
 .project-stage {
   position: relative;
   padding: 0 12px 12px 0;
-  outline: none;
   touch-action: pan-y;
 }
 
@@ -863,11 +878,6 @@ img {
   border: 1px solid var(--line-strong);
 }
 
-.project-stage:focus-visible .project-card {
-  outline: 3px solid color-mix(in srgb, var(--accent) 60%, transparent);
-  outline-offset: 3px;
-}
-
 .project-card {
   position: relative;
   z-index: 1;
@@ -876,26 +886,9 @@ img {
   display: grid;
   grid-template-columns: minmax(270px, 0.72fr) minmax(0, 1.28fr);
   overflow: hidden;
-  cursor: pointer;
   background: var(--soft);
   border: 1px solid var(--line-strong);
   box-shadow: 0 18px 52px rgba(37, 99, 235, 0.08);
-}
-
-.project-card:focus-visible {
-  outline: 3px solid color-mix(in srgb, var(--project-accent) 70%, transparent);
-  outline-offset: 3px;
-}
-
-.project-card-instruction {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
-  border: 0;
 }
 
 .project-card[data-direction="forward"] {
@@ -1289,36 +1282,6 @@ img {
   object-fit: cover;
 }
 
-.certificate-mark {
-  width: 100%;
-  height: 100%;
-  padding: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  color: var(--muted);
-  background: var(--paper);
-  border: 1px solid var(--line-strong);
-}
-
-.certificate-mark span {
-  align-self: flex-start;
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 0.65rem;
-}
-
-.certificate-mark i {
-  width: 66px;
-  height: 66px;
-  display: grid;
-  place-items: center;
-  color: var(--accent-ink);
-  background: var(--accent);
-  border-radius: 50%;
-  font-style: normal;
-  font-size: 1.35rem;
-}
-
 .certificate-copy {
   min-height: 220px;
   padding: 28px;
@@ -1365,50 +1328,6 @@ img {
   background: var(--accent);
   border-color: var(--accent);
   transform: translateY(-2px);
-}
-
-.achievement-list {
-  border-top: 1px solid var(--line-strong);
-}
-
-.achievement {
-  min-height: 150px;
-  padding-block: 28px;
-  display: grid;
-  grid-template-columns: 80px 100px 1fr 50px;
-  gap: 30px;
-  align-items: center;
-  border-bottom: 1px solid var(--line);
-  transition: padding 0.25s ease, background 0.25s ease;
-}
-
-.achievement:hover {
-  padding-inline: 18px;
-  background: var(--soft);
-}
-
-.achievement-number,
-.achievement-year {
-  color: var(--muted);
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 0.7rem;
-}
-
-.achievement h3 {
-  margin: 0 0 10px;
-  font-size: 1.45rem;
-  letter-spacing: -0.04em;
-}
-
-.achievement p {
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.86rem;
-}
-
-.achievement-arrow {
-  justify-self: end;
-  font-size: 1.2rem;
 }
 
 .contact-section {
@@ -1595,6 +1514,7 @@ img {
 
   .nav-shell { min-height: 76px; }
   .nav-cta { display: none; }
+  .case-study-github-link { display: none; }
   .menu-toggle { display: flex; flex-direction: column; gap: 5px; }
   .menu-toggle span { width: 16px; height: 1px; background: currentColor; transition: transform 0.2s ease; }
   .menu-toggle.is-open span:first-child { transform: translateY(3px) rotate(45deg); }
@@ -1616,8 +1536,6 @@ img {
   .main-nav.is-open { display: flex; }
   .main-nav > a { padding: 14px 0; font-size: 1rem; }
   .main-nav > a::after { display: none; }
-  .main-nav .mobile-contact { margin-top: 16px; padding: 16px 18px; display: block; color: var(--accent-ink); text-align: center; background: var(--accent); border-radius: 999px; }
-
   .hero {
     min-height: auto;
     padding-block: 62px 76px;
@@ -1653,8 +1571,6 @@ img {
   .certificate-grid { grid-template-columns: 1fr; gap: 18px; }
   .certificate-card { display: grid; grid-template-columns: 0.8fr 1.2fr; }
   .certificate-visual { height: auto; min-height: 230px; }
-  .achievement { grid-template-columns: 50px 75px 1fr 30px; gap: 12px; }
-
   .footer-shell { min-height: 150px; grid-template-columns: 1fr auto; }
   .footer-shell p { grid-column: 1 / -1; grid-row: 2; }
 }
@@ -1715,12 +1631,6 @@ img {
 
   .certificate-card { display: block; }
   .certificate-visual { height: 210px; }
-  .achievement { min-height: 170px; grid-template-columns: 45px 1fr 30px; }
-  .achievement-year { grid-column: 2; grid-row: 1; }
-  .achievement > div { grid-column: 2; grid-row: 2; }
-  .achievement-arrow { grid-column: 3; grid-row: 1 / 3; }
-  .achievement-number { grid-row: 1 / 3; align-self: start; padding-top: 3px; }
-
   .contact-section h2 { font-size: clamp(3.1rem, 15vw, 4.6rem); }
   .contact-grid { grid-template-columns: 1fr; }
   .contact-item { grid-template-columns: 72px minmax(0, 1fr) 18px; }

@@ -1,7 +1,7 @@
 "use client";
 
-import type { CSSProperties, KeyboardEvent, PointerEvent } from "react";
-import { useRef, useState } from "react";
+import type { CSSProperties, KeyboardEvent as ReactKeyboardEvent } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { ProjectCard } from "@/components/project-card";
 import type { Project } from "@/data/portfolio";
 
@@ -14,47 +14,81 @@ export function ProjectDeck({ projects }: ProjectDeckProps) {
   const [showDetails, setShowDetails] = useState(false);
   const [direction, setDirection] = useState<"forward" | "backward">("forward");
   const pointerStartX = useRef<number | null>(null);
+  const projectStageRef = useRef<HTMLDivElement>(null);
   const activeProject = projects[activeIndex];
 
-  if (!activeProject) return null;
-
-  function selectProject(nextIndex: number) {
+  const selectProject = useCallback((nextIndex: number) => {
     const normalizedIndex = (nextIndex + projects.length) % projects.length;
     setDirection(nextIndex > activeIndex ? "forward" : "backward");
     setActiveIndex(normalizedIndex);
     setShowDetails(false);
-  }
+  }, [activeIndex, projects.length]);
 
-  function handleKeyDown(event: KeyboardEvent<HTMLDivElement>) {
-    if (event.target !== event.currentTarget) return;
+  useEffect(() => {
+    if (!showDetails) return;
 
-    if (event.key === "ArrowRight") {
-      event.preventDefault();
-      selectProject(activeIndex + 1);
-    }
-
-    if (event.key === "ArrowLeft") {
-      event.preventDefault();
-      selectProject(activeIndex - 1);
-    }
-
-    if (event.key === "Escape" && showDetails) {
+    function closeDetails(event: KeyboardEvent) {
+      if (event.key !== "Escape") return;
       event.preventDefault();
       setShowDetails(false);
     }
-  }
 
-  function handlePointerDown(event: PointerEvent<HTMLDivElement>) {
-    if (event.pointerType === "touch") pointerStartX.current = event.clientX;
-  }
+    window.addEventListener("keydown", closeDetails);
+    return () => window.removeEventListener("keydown", closeDetails);
+  }, [showDetails]);
 
-  function handlePointerUp(event: PointerEvent<HTMLDivElement>) {
-    if (event.pointerType !== "touch" || pointerStartX.current === null) return;
+  useEffect(() => {
+    const stage = projectStageRef.current;
+    if (!stage) return;
 
-    const distance = event.clientX - pointerStartX.current;
-    pointerStartX.current = null;
-    if (Math.abs(distance) < 48) return;
-    selectProject(activeIndex + (distance < 0 ? 1 : -1));
+    function startSwipe(event: PointerEvent) {
+      if (event.pointerType === "touch") pointerStartX.current = event.clientX;
+    }
+
+    function finishSwipe(event: PointerEvent) {
+      if (event.pointerType !== "touch" || pointerStartX.current === null) return;
+
+      const distance = event.clientX - pointerStartX.current;
+      pointerStartX.current = null;
+      if (Math.abs(distance) < 48) return;
+      selectProject(activeIndex + (distance < 0 ? 1 : -1));
+    }
+
+    function cancelSwipe() {
+      pointerStartX.current = null;
+    }
+
+    stage.addEventListener("pointerdown", startSwipe);
+    stage.addEventListener("pointerup", finishSwipe);
+    stage.addEventListener("pointercancel", cancelSwipe);
+    return () => {
+      stage.removeEventListener("pointerdown", startSwipe);
+      stage.removeEventListener("pointerup", finishSwipe);
+      stage.removeEventListener("pointercancel", cancelSwipe);
+    };
+  }, [activeIndex, selectProject]);
+
+  if (!activeProject) return null;
+
+  function handleTabKeyDown(
+    event: ReactKeyboardEvent<HTMLButtonElement>,
+    currentIndex: number,
+  ) {
+    let nextIndex: number | undefined;
+
+    if (event.key === "ArrowRight") nextIndex = currentIndex + 1;
+    else if (event.key === "ArrowLeft") nextIndex = currentIndex - 1;
+    else if (event.key === "Home") nextIndex = 0;
+    else if (event.key === "End") nextIndex = projects.length - 1;
+
+    if (nextIndex === undefined) return;
+
+    event.preventDefault();
+    const normalizedIndex = (nextIndex + projects.length) % projects.length;
+    selectProject(nextIndex);
+    window.requestAnimationFrame(() => {
+      document.getElementById(`project-tab-${projects[normalizedIndex].slug}`)?.focus();
+    });
   }
 
   const progressStyle = {
@@ -83,12 +117,10 @@ export function ProjectDeck({ projects }: ProjectDeckProps) {
       </div>
 
       <div
+        ref={projectStageRef}
         className="project-stage"
-        tabIndex={0}
-        onKeyDown={handleKeyDown}
-        onPointerDown={handlePointerDown}
-        onPointerUp={handlePointerUp}
-        aria-label="Project flashcard. Use the left and right arrow keys to browse projects."
+        role="group"
+        aria-label="Project flashcard. Swipe left or right on touch screens to browse projects."
       >
         <ProjectCard
           key={activeProject.slug}
@@ -113,8 +145,10 @@ export function ProjectDeck({ projects }: ProjectDeckProps) {
               role="tab"
               aria-selected={isActive}
               aria-controls={isActive ? `project-card-${project.slug}` : undefined}
+              tabIndex={isActive ? 0 : -1}
               className={isActive ? "is-active" : undefined}
               onClick={() => selectProject(index)}
+              onKeyDown={(event) => handleTabKeyDown(event, index)}
               key={project.slug}
               title={project.title}
             >

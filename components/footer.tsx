@@ -4,13 +4,14 @@ type FooterProps = {
   name: string;
   initials: string;
   socials: SocialLink[];
+  homeHref?: string;
 };
 
-export function Footer({ name, initials, socials }: FooterProps) {
+export function Footer({ name, initials, socials, homeHref = "#home" }: FooterProps) {
   return (
     <footer className="footer">
       <div className="footer-shell">
-        <a className="brand footer-brand" href="#home" aria-label="Back to home">
+        <a className="brand footer-brand" href={homeHref} aria-label="Back to home">
           {initials}<span>.</span>
         </a>
         <p>© {new Date().getFullYear()} {name}. Built with care and curiosity.</p>

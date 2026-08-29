@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { ThemeToggle } from "@/components/theme-toggle";
 import type { NavigationItem } from "@/data/portfolio";
 
 type HeaderProps = {
@@ -13,13 +14,6 @@ type HeaderProps = {
 
 export function Header({ initials, navigation, email, activeTab, onNavigate }: HeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
-
-  function toggleTheme() {
-    const currentTheme = document.documentElement.dataset.theme === "dark" ? "dark" : "light";
-    const nextTheme = currentTheme === "dark" ? "light" : "dark";
-    document.documentElement.dataset.theme = nextTheme;
-    window.localStorage.setItem("portfolio-theme", nextTheme);
-  }
 
   function navigate(href: string) {
     onNavigate(href);
@@ -57,10 +51,11 @@ export function Header({ initials, navigation, email, activeTab, onNavigate }: H
           {initials}<span>.</span>
         </a>
 
-        <nav
+        <div
           className={`main-nav ${menuOpen ? "is-open" : ""}`}
           aria-label="Portfolio sections"
           role="tablist"
+          tabIndex={-1}
           onKeyDown={handleTabKeyDown}
         >
           {navigation.map((item) => (
@@ -81,18 +76,10 @@ export function Header({ initials, navigation, email, activeTab, onNavigate }: H
               {item.label}
             </a>
           ))}
-        </nav>
+        </div>
 
         <div className="nav-actions">
-          <button
-            className="theme-toggle"
-            type="button"
-            onClick={toggleTheme}
-            aria-label="Toggle color theme"
-            title="Toggle color theme"
-          >
-            <span aria-hidden="true">◐</span>
-          </button>
+          <ThemeToggle />
           <a className="nav-cta" href={`mailto:${email}`}>
             Let&apos;s talk
           </a>

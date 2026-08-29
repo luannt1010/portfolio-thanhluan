@@ -1,4 +1,5 @@
-import type { CSSProperties, KeyboardEvent, MouseEvent } from "react";
+import Link from "next/link";
+import type { CSSProperties } from "react";
 import type { Project } from "@/data/portfolio";
 
 type ProjectCardProps = {
@@ -22,38 +23,16 @@ export function ProjectCard({
 }: ProjectCardProps) {
   const style = { "--project-accent": project.accent } as CSSProperties;
 
-  function isInteractiveTarget(target: EventTarget | null) {
-    return target instanceof Element && Boolean(target.closest("a, button"));
-  }
-
-  function handleCardClick(event: MouseEvent<HTMLElement>) {
-    if (isInteractiveTarget(event.target) || window.getSelection()?.toString()) return;
-    onToggleDetails();
-  }
-
-  function handleCardKeyDown(event: KeyboardEvent<HTMLElement>) {
-    if (event.target !== event.currentTarget || (event.key !== "Enter" && event.key !== " ")) return;
-    event.preventDefault();
-    onToggleDetails();
-  }
-
   return (
     <article
       className="project-card"
       id={`project-card-${project.slug}`}
       role="tabpanel"
       aria-labelledby={tabId}
-      aria-describedby={`project-card-instruction-${project.slug}`}
       data-direction={direction}
       data-face={showDetails ? "back" : "front"}
-      tabIndex={0}
-      onClick={handleCardClick}
-      onKeyDown={handleCardKeyDown}
       style={style}
     >
-      <span className="project-card-instruction" id={`project-card-instruction-${project.slug}`}>
-        Click anywhere on this card, or press Enter or Space, to {showDetails ? "return to the summary" : "view project details"}.
-      </span>
       <div className="project-visual">
         {project.image ? (
           // A regular img keeps the data file flexible for either local or remote images.
@@ -69,7 +48,7 @@ export function ProjectCard({
           </div>
         )}
         <span className="project-visual-hint" aria-hidden="true">
-          {showDetails ? "Click for summary" : "Click to flip"}
+          {showDetails ? "Showing details" : "Project preview"}
         </span>
       </div>
 
@@ -113,6 +92,11 @@ export function ProjectCard({
             <span aria-hidden="true">↻</span>
           </button>
           <div className="project-links">
+            {project.caseStudySlug ? (
+              <Link href={`/projects/${project.caseStudySlug}`}>
+                Full case study <span aria-hidden="true">→</span>
+              </Link>
+            ) : null}
             {project.demoUrl ? (
               <a href={project.demoUrl} target="_blank" rel="noreferrer">
                 Live demo <span aria-hidden="true">↗</span>

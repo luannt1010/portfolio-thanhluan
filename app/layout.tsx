@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     images: [
       {
         url: "/og.png",
-        width: 1743,
+        width: 1731,
         height: 908,
         alt: `${portfolio.person.name} — ${portfolio.person.role}`,
       },

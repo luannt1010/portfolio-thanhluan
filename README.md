@@ -1,19 +1,25 @@
 # AI Developer Portfolio
 
-Portfolio cá nhân hiện đại dành cho AI/Software Developer, xây dựng bằng Next.js App Router và tối ưu để deploy trực tiếp lên Vercel. Toàn bộ nội dung cá nhân được quản lý tập trung trong một file dữ liệu.
+Portfolio cá nhân của Nguyen Thanh Luan, xây dựng bằng React 19, Vinext và Vite. Project được triển khai trên OpenAI Sites với Cloudflare Worker-compatible output.
+
+Nội dung portfolio được quản lý theo hướng data-driven:
+
+- Thông tin cá nhân, kỹ năng, kinh nghiệm, học vấn, project và chứng chỉ nằm trong `data/portfolio.ts`.
+- Nội dung case study nằm trong `data/case-studies/`.
+- Component chỉ chịu trách nhiệm trình bày và tương tác, không chứa số liệu project.
 
 ## Chạy project local
 
-Yêu cầu Node.js 20.9 trở lên.
+Yêu cầu Node.js `>=22.13.0`.
 
 ```bash
 npm install
 npm run dev
 ```
 
-Mở [http://localhost:3000](http://localhost:3000) trong trình duyệt.
+Mở [http://localhost:3000](http://localhost:3000).
 
-Các lệnh hữu ích:
+Các lệnh kiểm tra và build:
 
 ```bash
 npm run lint
@@ -22,45 +28,52 @@ npm run build
 npm start
 ```
 
-## Thay đổi thông tin cá nhân
+## Cập nhật nội dung portfolio
 
-Mở `data/portfolio.ts`. Đây là nơi quản lý tập trung:
+Mở `data/portfolio.ts` để cập nhật:
 
-- Tên, chức danh, email, địa điểm và nội dung Hero
-- Giới thiệu, số liệu nổi bật và social links
+- SEO, tên, chức danh, email, địa điểm và phần giới thiệu
+- Số liệu tổng quan và social links
 - Skills / Tech Stack
 - Experience và Education
 - Projects
 - Certificates
-- Achievements
-- Nội dung SEO
 
-Bạn không cần sửa component khi chỉ cập nhật nội dung.
+Không cần sửa component nếu chỉ thay đổi nội dung thuộc các nhóm trên.
 
-## Thêm project mới
+## Thêm project
 
-Trong `data/portfolio.ts`, thêm một object vào mảng `projects`:
+Thêm một object vào mảng `projects` trong `data/portfolio.ts`:
 
 ```ts
 {
   slug: "project-slug",
   title: "Project name",
   category: "AI Product",
-  shortDescription: "Mô tả ngắn dùng làm câu giới thiệu.",
-  description: "Mô tả chi tiết hơn về bài toán, giải pháp và đóng góp.",
-  technologies: ["Next.js", "Python", "PostgreSQL"],
-  image: "/projects/project-name.jpg", // Không bắt buộc
+  shortDescription: "Mô tả ngắn dùng ở mặt trước của project card.",
+  description: "Mô tả bài toán, giải pháp và phạm vi triển khai.",
+  highlights: ["Kết quả hoặc đóng góp đã được xác minh."],
+  technologies: ["PyTorch", "FastAPI", "PostgreSQL"],
+  image: "/images/projects/project-name.jpg",
   githubUrl: "https://github.com/your-name/project",
-  demoUrl: "https://project-demo.vercel.app",
-  period: "Jan — Mar 2026",
-  featured: true,
+  demoUrl: "https://project-demo.example.com",
+  period: "Personal Project",
   accent: "#3454d1",
 }
 ```
 
-Nếu không có `image`, website tự hiển thị cover hình học theo màu `accent`. Nếu có ảnh, đặt file trong `public/projects/` và dùng đường dẫn bắt đầu bằng `/projects/`.
+`image`, `highlights`, `githubUrl`, `demoUrl` và `caseStudySlug` là tùy chọn. Nếu không có ảnh, card dùng artwork hình học theo màu `accent`. Ảnh project nằm trong `public/images/projects/` và được tham chiếu bằng đường dẫn bắt đầu với `/images/projects/`.
 
-## Thêm certificate mới
+## Thêm case study
+
+1. Tạo file trong `data/case-studies/` theo type `CaseStudy` ở `data/case-studies/types.ts`.
+2. Đăng ký case study trong `data/case-studies/index.ts`.
+3. Đặt media trong `public/images/case-studies/<slug>/`.
+4. Thêm `caseStudySlug: "<slug>"` vào project tương ứng trong `data/portfolio.ts`.
+
+`caseStudySlug` phải trùng với `slug` của case study đã đăng ký. Route chi tiết được tạo tại `/projects/<slug>`.
+
+## Thêm certificate
 
 Thêm một object vào mảng `certificates` trong `data/portfolio.ts`:
 
@@ -68,64 +81,56 @@ Thêm một object vào mảng `certificates` trong `data/portfolio.ts`:
 {
   name: "Certificate name",
   issuer: "Issuing organization",
+  platform: "Learning platform",
   issueDate: "August 2026",
   credentialUrl: "https://credential.example.com",
-  image: "/certificates/certificate-name.jpg", // Không bắt buộc
+  image: "/images/certificates/certificate-name.jpg",
 }
 ```
 
-Đặt ảnh chứng chỉ trong `public/certificates/`. Nếu bỏ `image`, website dùng placeholder mặc định.
+Ảnh chứng chỉ nằm trong `public/images/certificates/`. Nếu không khai báo `image`, giao diện dùng `/images/certificates/certificate-thumbnail.jpg`.
 
-## Thay avatar hoặc ảnh
+## Avatar, SEO và social preview
 
-Phiên bản hiện tại dùng artwork hình học thay avatar để giữ phong cách gọn và tải nhanh. Để thêm avatar:
+- Avatar hiện tại: `public/images/nguyen-thanh-luan.jpg`.
+- Cập nhật đường dẫn avatar tại `portfolio.person.avatar`.
+- SEO title, description và URL mặc định nằm trong `portfolio.seo`.
+- Có thể đặt `NEXT_PUBLIC_SITE_URL` để ghi đè URL mặc định khi build cho một domain khác.
+- Social preview dùng `public/og.png`.
+- Mỗi case study tự tạo metadata title, description và preview image từ record tương ứng.
 
-1. Đặt ảnh vào `public/images/avatar.jpg`.
-2. Thêm trường `avatar: "/images/avatar.jpg"` vào `person` trong `data/portfolio.ts`.
-3. Hiển thị trường này tại vị trí mong muốn trong `app/page.tsx` hoặc tạo component riêng.
+## Hosting
 
-Ảnh project và certificate không cần sửa component; chỉ cần thêm file và cập nhật trường `image` trong dữ liệu.
+Project sử dụng OpenAI Sites. Cấu hình project ID nằm trong `.openai/hosting.json`; Vinext, Vite và Cloudflare Worker được cấu hình tại `vite.config.ts` và `worker/index.ts`.
 
-## SEO và ảnh chia sẻ
+URL hiện tại:
 
-- Sửa `seo.title`, `seo.description` và `seo.siteUrl` trong `data/portfolio.ts`.
-- Ảnh Open Graph nằm tại `public/og.png`.
-- Khi deploy, có thể đặt biến môi trường `NEXT_PUBLIC_SITE_URL` bằng domain thật. Biến này sẽ ghi đè `seo.siteUrl`.
+[https://nguyen-thanh-luan-ai-portfolio.luanntai13.chatgpt.site](https://nguyen-thanh-luan-ai-portfolio.luanntai13.chatgpt.site)
 
-## Deploy lên Vercel
-
-### Cách 1: GitHub
-
-1. Push project lên GitHub.
-2. Vào Vercel và chọn **Add New → Project**.
-3. Import repository.
-4. Vercel tự nhận diện Next.js; giữ nguyên Build Command và Output mặc định.
-5. Thêm `NEXT_PUBLIC_SITE_URL` với domain production, ví dụ `https://your-name.vercel.app`.
-6. Chọn **Deploy**.
-
-### Cách 2: Vercel CLI
-
-```bash
-npm install -g vercel
-vercel
-```
-
-Không cần backend hoặc cấu hình đặc biệt cho phiên bản hiện tại.
+Không commit file môi trường, cache hoặc build output. Các thư mục `.next/`, `.vinext/`, `.wrangler/`, `dist/`, `outputs/`, `tmp/` và file `*.tsbuildinfo` đã được ignore.
 
 ## Cấu trúc chính
 
 ```text
 app/
-  globals.css        # Design system, responsive và animation
-  layout.tsx         # SEO metadata và layout gốc
-  page.tsx           # Ghép các section của trang
+  layout.tsx                    # Metadata, theme bootstrap và root layout
+  page.tsx                      # Portfolio tabs và section composition
+  projects/[slug]/              # Dynamic case-study route
 components/
-  header.tsx         # Navigation, mobile menu, dark/light mode
-  project-card.tsx   # Card project tái sử dụng
+  header.tsx
+  theme-toggle.tsx
+  project-deck.tsx
+  project-card.tsx
+  case-study-header.tsx
   section-heading.tsx
   footer.tsx
 data/
-  portfolio.ts       # Toàn bộ nội dung portfolio
+  portfolio.ts                  # Nội dung portfolio
+  case-studies/                 # Nội dung và registry case study
 public/
-  og.png             # Social preview image
+  images/                       # Ảnh portfolio và case study
+  og.png                        # Social preview mặc định
+worker/
+  index.ts                      # Vinext request và image optimization handler
+vite.config.ts                  # Sites, Vinext và Cloudflare integration
 ```

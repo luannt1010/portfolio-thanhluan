@@ -35,8 +35,8 @@ export type Project = {
   image?: string;
   githubUrl?: string;
   demoUrl?: string;
+  caseStudySlug?: string;
   period: string;
-  featured: boolean;
   accent: string;
 };
 
@@ -58,10 +58,7 @@ export const portfolio = {
     title: "Nguyen Thanh Luan — AI Developer",
     description:
       "Portfolio of Nguyen Thanh Luan, an AI developer building thoughtful, reliable digital products.",
-    siteUrl: "https://example.com",
-  },
-  sections: {
-    showAchievements: false,
+    siteUrl: "https://nguyen-thanh-luan-ai-portfolio.luanntai13.chatgpt.site",
   },
   person: {
     name: "Nguyen Thanh Luan",
@@ -69,13 +66,11 @@ export const portfolio = {
     role: "AI Developer",
     availability: "Final-year AI student • Open to opportunities",
     location: "Ho Chi Minh City, Vietnam",
-    timezone: "UTC+7",
     email: "luanntai13@gmail.com",
     avatar: "/images/nguyen-thanh-luan.jpg",
     heroTitle: "I build practical AI systems for real-world problems.",
     heroDescription:
       "Final-year Artificial Intelligence student at FPT University, focused on Computer Vision, NLP, and building end-to-end AI applications from model training to deployment.",
-    currentFocus: "Computer Vision, NLP, and end-to-end AI systems.",
     profileNote: "Final-year AI student at FPT University",
     resumeUrl: "https://drive.google.com/file/d/1zO5E0MlzlVhOFndDKDT7FEFiapbWKhSc/view?usp=sharing",
     aboutTitle: "Final-year AI student building practical intelligent systems.",
@@ -105,7 +100,7 @@ export const portfolio = {
     },
     {
       label: "Phone",
-      value: "(+84) 0963349004",
+      value: "+84 963 349 004",
       href: "tel:+84963349004",
     },
     {
@@ -125,7 +120,7 @@ export const portfolio = {
   ] as ContactItem[],
   stats: [
     { value: "2027", label: "Expected graduation" },
-    { value: "8", label: "Personal AI Projects" },
+    { value: "8", label: "AI Projects" },
     { value: "8.4/10", label: "Current GPA" },
   ],
   skills: [
@@ -205,16 +200,17 @@ export const portfolio = {
   projects: [
     {
       slug: "face-recognition-system",
-      title: "Face Recognition System",
+      title: "Real-Time Face Recognition System with MobileFaceNet",
       category: "Computer Vision",
       shortDescription:
         "An end-to-end real-time multi-face recognition system for registration, tracking, and identity matching.",
       description:
         "A modular computer vision pipeline that combines deep face embeddings, real-time tracking, vector search, API services, and a desktop interface.",
+      caseStudySlug: "face-recognition-system",
       image: "/images/projects/face-recognition-system.webp",
       highlights: [
         "Developed an end-to-end real-time multi-face recognition system using PyTorch and OpenCV, integrating SCRFD detection, face alignment, ByteTrack tracking, and cosine similarity matching.",
-        "Built and trained 512-dimensional face embedding models using MobileFaceNet, ResNet, and iResNet with ArcFace, AdaFace, and Triplet Loss, achieving 92.63% training accuracy, 91.37% validation accuracy, and TAR@FAR=1% of 87.72% on the training set and 85.27% on the validation set.",
+        "Trained a 1.20M-parameter MobileFaceNet with ArcFace on 490,623 WebFace images, achieving 91.37% validation verification accuracy, 96.28% ROC-AUC, and TAR@FAR=1% of 85.27%.",
         "Designed FastAPI services and a PyQt6 desktop application for face registration and recognition, using ONNX Runtime for inference and PostgreSQL/pgvector for vector search.",
       ],
       technologies: [
@@ -230,12 +226,12 @@ export const portfolio = {
       ],
       githubUrl: "https://github.com/luannt1010/face-recoginition-system.git",
       period: "Personal Project",
-      featured: true,
       accent: "#3454d1",
     },
     {
       slug: "vietnamese-alpr",
-      title: "Vietnamese License Plate Recognition",
+      caseStudySlug: "vietnamese-alpr",
+      title: "Vietnamese Automatic License Plate Recognition",
       category: "Computer Vision",
       shortDescription:
         "An automatic license plate recognition pipeline built specifically for Vietnamese vehicles.",
@@ -244,7 +240,7 @@ export const portfolio = {
       image: "/images/projects/vietnamese-alpr.png",
       highlights: [
         "Developed an end-to-end ALPR pipeline for Vietnamese vehicles, combining Faster R-CNN and YOLO11n for plate detection with fine-tuned DeepSeek-OCR for character recognition.",
-        "Trained and evaluated a Faster R-CNN detector for single-line and two-line license plates, achieving 96.46% mAP@50 and 76.88% mAP@50:95.",
+        "Compared two detectors on single-line and two-line plates: YOLO11n reached 98.71% test mAP@50 and 85.71% mAP@50:95, while the default Faster R-CNN MobileNet V3 Large FPN reached 96.46% and 76.88%.",
         "Built CLI tools and a PyQt5 desktop application to process images and video frames, visualize detected plates, and export predictions as structured JSON results.",
       ],
       technologies: [
@@ -257,7 +253,6 @@ export const portfolio = {
       ],
       githubUrl: "https://github.com/luannt1010/alpr-system.git",
       period: "Personal Project",
-      featured: true,
       accent: "#e2552f",
     },
     {
@@ -286,26 +281,26 @@ export const portfolio = {
       githubUrl:
         "https://github.com/luannt1010/ai-research-paper-assistant.git",
       period: "Personal Project · In Progress",
-      featured: true,
       accent: "#7c3aed",
     },
     {
       slug: "real-time-sketch-recognition",
-      title: "Real-Time Sketch Recognition",
+      title: "Real-Time Sketch Recognition with a Custom Residual CNN",
       category: "Deep Learning",
       shortDescription:
         "A web-based system that recognizes hand-drawn objects from a canvas or live camera feed.",
       description:
         "A full-stack recognition workflow centered on a custom residual CNN, with real-time hand tracking and a feedback loop for collecting corrected predictions.",
+      caseStudySlug: "real-time-sketch-recognition",
       image: "/images/projects/real-time-sketch-recognition.avif",
       highlights: [
         "Developed an end-to-end hand-drawn sketch recognition system using a custom residual CNN in PyTorch, integrated with a Django REST API and React web application.",
-        "Processed and augmented 12,500 balanced images across 25 object classes, implemented OpenCV-based stroke normalization, and trained a three-block CNN that achieved 90% accuracy and a 91% F1-score.",
+        "Built a balanced 12,500-image dataset across 25 classes from 7,500 Google Quick, Draw! samples and 5,000 custom drawings, then trained a 4.63M-parameter residual CNN that achieved 90.16% test accuracy and an 89.86% F1-score.",
         "Built canvas and camera-based recognition workflows using MediaPipe hand tracking, displaying prediction confidence and inference time while collecting corrected labels and drawings in SQLite for future model improvement.",
       ],
       technologies: [
         "PyTorch",
-        "Django REST",
+        "Django REST Framework",
         "React",
         "MediaPipe",
         "OpenCV",
@@ -313,7 +308,6 @@ export const portfolio = {
       ],
       githubUrl: "https://github.com/luannt1010/real-time-sketch-recognition.git",
       period: "Personal Project",
-      featured: true,
       accent: "#20876a",
     },
     {
@@ -343,7 +337,6 @@ export const portfolio = {
       githubUrl:
         "https://github.com/luannt1010/dota-multiscale-obb-segmentation.git",
       period: "Personal Project",
-      featured: true,
       accent: "#d97706",
     },
     {
@@ -354,6 +347,7 @@ export const portfolio = {
         "A Vietnamese news clickbait classifier supporting headlines, article URLs, and batch inference.",
       description:
         "An end-to-end Vietnamese NLP pipeline that combines word segmentation, a fine-tuned PhoBERT model, web content extraction, and accessible prediction tools.",
+      caseStudySlug: "vietnamese-clickbait-detection",
       image: "/images/projects/vietnamese-clickbait-detection.webp",
       highlights: [
         "Developed an end-to-end Vietnamese clickbait detection pipeline using PyVi word segmentation and fine-tuned PhoBERT.",
@@ -364,19 +358,18 @@ export const portfolio = {
         "PhoBERT",
         "PyVi",
         "Streamlit",
-        "REST API",
+        "FastAPI",
         "Python",
         "Pandas",
       ],
       githubUrl:
         "https://github.com/luannt1010/PhoBert-VietNamClickBait-Recognize.git",
       period: "Personal Project",
-      featured: true,
       accent: "#9b5de5",
     },
     {
       slug: "lung-colorectal-cancer-recognition",
-      title: "Cancer Recognition Using CNN",
+      title: "Lung and Colorectal Cancer Recognition Using CNN",
       category: "Deep Learning · Medical Image Classification",
       shortDescription:
         "A research CNN system for classifying lung and colorectal histopathology images across five tissue classes.",
@@ -395,7 +388,7 @@ export const portfolio = {
         "Keras",
         "NumPy",
         "Pandas",
-        "Scikit-learn",
+        "scikit-learn",
         "Pillow",
         "Matplotlib",
         "Seaborn",
@@ -405,8 +398,8 @@ export const portfolio = {
       ],
       githubUrl:
         "https://github.com/luannt1010/Lung-Colon-Detection-Project.git",
+      caseStudySlug: "lung-colorectal-cancer-recognition",
       period: "Machine Learning Developer · Team of 2",
-      featured: true,
       accent: "#be123c",
     },
     {
@@ -432,12 +425,11 @@ export const portfolio = {
         "XGBoost",
         "OpenCV",
         "Pandas",
-        "Jupyter",
+        "Jupyter Notebook",
       ],
       githubUrl:
         "https://github.com/luannt1010/Machine_Learning_Foundations.git",
       period: "Personal Project",
-      featured: true,
       accent: "#0f766e",
     },
   ] as Project[],
@@ -501,21 +493,4 @@ export const portfolio = {
         "https://coursera.org/share/3a36e5539e58d129ee85bf0cb86d5aa7",
     },
   ] as Certificate[],
-  achievements: [
-    {
-      year: "2025",
-      title: "Top 10 — Global AI Product Hackathon",
-      description: "Built an accessible, multilingual learning assistant in 48 hours.",
-    },
-    {
-      year: "2024",
-      title: "Open-source milestone",
-      description: "Maintainer of developer tools reaching 1,800+ GitHub stars.",
-    },
-    {
-      year: "2023",
-      title: "Engineering excellence award",
-      description: "Recognized for measurable improvements to platform reliability.",
-    },
-  ],
 };
