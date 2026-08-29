@@ -1,9 +1,12 @@
 import { sites } from "@openai/sites-vite-plugin";
 import vinext from "vinext";
+import { nitro } from "nitro/vite";
 import { defineConfig } from "vite";
 import hostingConfig from "./.openai/hosting.json" with { type: "json" };
 
 const isCodexSeatbeltSandbox = process.env.CODEX_SANDBOX === "seatbelt";
+const isVercelBuild =
+  process.env.VERCEL === "1" || process.env.NITRO_PRESET === "vercel";
 
 const localBindingConfig = {
   main: "./worker/index.ts",
@@ -11,6 +14,22 @@ const localBindingConfig = {
 };
 
 export default defineConfig(async () => {
+  const sharedConfig = {
+    server: isCodexSeatbeltSandbox
+      ? { watch: { useFsEvents: false, usePolling: true } }
+      : undefined,
+    define: {
+      __SITE_PROJECT_ID__: JSON.stringify(hostingConfig.project_id),
+    },
+  };
+
+  if (isVercelBuild) {
+    return {
+      ...sharedConfig,
+      plugins: [vinext(), nitro()],
+    };
+  }
+
   process.env.WRANGLER_WRITE_LOGS ??= "false";
   process.env.WRANGLER_LOG_PATH ??= ".wrangler/logs";
   process.env.MINIFLARE_REGISTRY_PATH ??= ".wrangler/registry";
@@ -18,9 +37,7 @@ export default defineConfig(async () => {
   const { cloudflare } = await import("@cloudflare/vite-plugin");
 
   return {
-    server: isCodexSeatbeltSandbox
-      ? { watch: { useFsEvents: false, usePolling: true } }
-      : undefined,
+    ...sharedConfig,
     plugins: [
       vinext(),
       sites(),
@@ -29,8 +46,5 @@ export default defineConfig(async () => {
         config: localBindingConfig,
       }),
     ],
-    define: {
-      __SITE_PROJECT_ID__: JSON.stringify(hostingConfig.project_id),
-    },
   };
 });
