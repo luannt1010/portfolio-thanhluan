@@ -435,6 +435,13 @@ export const portfolio = {
   ] as Project[],
   certificates: [
     {
+      name: "Mathematics for Machine Learning and Data Science",
+      issuer: "DeepLearning.AI",
+      platform: "Coursera",
+      credentialUrl:
+        "https://coursera.org/share/269ab05dfd7e60b327a76ca03dd09e7f",
+    },
+    {
       name: "Deep Learning Specialization",
       issuer: "DeepLearning.AI",
       platform: "Coursera",
@@ -448,11 +455,11 @@ export const portfolio = {
       credentials: [
         {
           label:
-            "Supervised Machine Learning — DeepLearning.AI",
+            "Supervised ML - DeepLearning.AI",
           url: "https://coursera.org/share/ac62f8057b13139cc3184c88b2c777f0",
         },
         {
-          label: "Unsupervised Machine Learning — IBM",
+          label: "Unsupervised ML - IBM",
           url: "https://coursera.org/share/534b6a0f908c53d1fad58ea53d9ffc9b",
         },
       ],
