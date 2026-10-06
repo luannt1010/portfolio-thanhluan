@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import type { NavigationItem } from "@/data/portfolio";
 
@@ -8,33 +8,40 @@ type HeaderProps = {
   initials: string;
   navigation: NavigationItem[];
   email: string;
-  activeTab: string;
-  onNavigate: (href: string) => void;
 };
 
-export function Header({ initials, navigation, email, activeTab, onNavigate }: HeaderProps) {
+export function Header({ initials, navigation, email }: HeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  function navigate(href: string) {
-    onNavigate(href);
-    setMenuOpen(false);
-  }
+  const [activeSection, setActiveSection] = useState("home");
 
-  function handleTabKeyDown(event: React.KeyboardEvent<HTMLElement>) {
-    const currentIndex = navigation.findIndex((item) => item.href === `#${activeTab}`);
-    let nextIndex = currentIndex;
-
-    if (event.key === "ArrowRight") nextIndex = (currentIndex + 1) % navigation.length;
-    else if (event.key === "ArrowLeft") nextIndex = (currentIndex - 1 + navigation.length) % navigation.length;
-    else if (event.key === "Home") nextIndex = 0;
-    else if (event.key === "End") nextIndex = navigation.length - 1;
-    else return;
-
-    event.preventDefault();
-    const nextItem = navigation[nextIndex];
-    navigate(nextItem.href);
-    window.requestAnimationFrame(() => document.getElementById(`${nextItem.href.slice(1)}-tab`)?.focus());
-  }
+  useEffect(() => {
+    let frame = 0;
+    function updateActiveSection() {
+      frame = 0;
+      const offset = (document.querySelector(".site-header")?.getBoundingClientRect().height ?? 74) + 32;
+      let current = navigation[0]?.href.slice(1) ?? "home";
+      for (const item of navigation) {
+        const section = document.getElementById(item.href.slice(1));
+        if (section && section.getBoundingClientRect().top <= offset) current = section.id;
+      }
+      if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2) {
+        current = navigation.at(-1)?.href.slice(1) ?? current;
+      }
+      setActiveSection(current);
+    }
+    function scheduleUpdate() {
+      if (!frame) frame = window.requestAnimationFrame(updateActiveSection);
+    }
+    updateActiveSection();
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", scheduleUpdate);
+    return () => {
+      window.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
+      window.cancelAnimationFrame(frame);
+    };
+  }, [navigation]);
 
   return (
     <header className="site-header">
@@ -43,40 +50,28 @@ export function Header({ initials, navigation, email, activeTab, onNavigate }: H
           className="brand"
           href="#home"
           aria-label="Go to home"
-          onClick={(event) => {
-            event.preventDefault();
-            navigate("#home");
-          }}
+          onClick={() => setMenuOpen(false)}
         >
           {initials}<span>.</span>
         </a>
 
-        <div
+        <nav
           className={`main-nav ${menuOpen ? "is-open" : ""}`}
           aria-label="Portfolio sections"
-          role="tablist"
-          tabIndex={-1}
-          onKeyDown={handleTabKeyDown}
+          id="portfolio-navigation"
         >
           {navigation.map((item) => (
             <a
-              className={activeTab === item.href.slice(1) ? "is-active" : undefined}
-              id={`${item.href.slice(1)}-tab`}
+              className={activeSection === item.href.slice(1) ? "is-active" : undefined}
               key={item.href}
               href={item.href}
-              role="tab"
-              aria-controls={`${item.href.slice(1)}-panel`}
-              aria-selected={activeTab === item.href.slice(1)}
-              tabIndex={activeTab === item.href.slice(1) ? 0 : -1}
-              onClick={(event) => {
-                event.preventDefault();
-                navigate(item.href);
-              }}
+              aria-current={activeSection === item.href.slice(1) ? "location" : undefined}
+              onClick={() => setMenuOpen(false)}
             >
               {item.label}
             </a>
           ))}
-        </div>
+        </nav>
 
         <div className="nav-actions">
           <ThemeToggle />
@@ -87,6 +82,7 @@ export function Header({ initials, navigation, email, activeTab, onNavigate }: H
             className={`menu-toggle ${menuOpen ? "is-open" : ""}`}
             type="button"
             aria-label={menuOpen ? "Close navigation" : "Open navigation"}
+            aria-controls="portfolio-navigation"
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen((open) => !open)}
           >

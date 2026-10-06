@@ -53,6 +53,8 @@ export type Certificate = {
   image?: string;
 };
 
+const resumeUrl = "https://drive.google.com/file/d/1zO5E0MlzlVhOFndDKDT7FEFiapbWKhSc/view?usp=sharing";
+
 export const portfolio = {
   seo: {
     title: "Nguyen Thanh Luan — AI Developer",
@@ -72,7 +74,7 @@ export const portfolio = {
     heroDescription:
       "Final-year Artificial Intelligence student at FPT University, focused on Computer Vision, NLP, and building end-to-end AI applications from model training to deployment.",
     profileNote: "Final-year AI student at FPT University",
-    resumeUrl: "https://drive.google.com/file/d/1zO5E0MlzlVhOFndDKDT7FEFiapbWKhSc/view?usp=sharing",
+    resumeUrl,
     aboutTitle: "Final-year AI student building practical intelligent systems.",
     bio: [
       "I am a final-year Artificial Intelligence student at FPT University, focused on building practical AI systems across computer vision, natural language processing, and machine learning.",
@@ -116,6 +118,11 @@ export const portfolio = {
     {
       label: "Location",
       value: "Ho Chi Minh City, Vietnam",
+    },
+    {
+      label: "Résumé / CV",
+      value: "View my résumé",
+      href: resumeUrl,
     },
   ] as ContactItem[],
   stats: [

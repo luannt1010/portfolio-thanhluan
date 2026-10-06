@@ -6,20 +6,12 @@ type ProjectCardProps = {
   project: Project;
   index: number;
   total: number;
-  showDetails: boolean;
-  direction: "forward" | "backward";
-  tabId: string;
-  onToggleDetails: () => void;
 };
 
 export function ProjectCard({
   project,
   index,
   total,
-  showDetails,
-  direction,
-  tabId,
-  onToggleDetails,
 }: ProjectCardProps) {
   const style = { "--project-accent": project.accent } as CSSProperties;
 
@@ -27,17 +19,14 @@ export function ProjectCard({
     <article
       className="project-card"
       id={`project-card-${project.slug}`}
-      role="tabpanel"
-      aria-labelledby={tabId}
-      data-direction={direction}
-      data-face={showDetails ? "back" : "front"}
+      aria-labelledby={`project-title-${project.slug}`}
       style={style}
     >
       <div className="project-visual">
         {project.image ? (
           // A regular img keeps the data file flexible for either local or remote images.
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={project.image} alt={`${project.title} project preview`} />
+          <img loading="lazy" src={project.image} alt={`${project.title} project preview`} />
         ) : (
           <div className="project-art" aria-hidden="true">
             <span className="project-number">
@@ -47,9 +36,6 @@ export function ProjectCard({
             <p>{project.category}</p>
           </div>
         )}
-        <span className="project-visual-hint" aria-hidden="true">
-          {showDetails ? "Showing details" : "Project preview"}
-        </span>
       </div>
 
       <div className="project-content">
@@ -58,39 +44,21 @@ export function ProjectCard({
           <span>{project.period}</span>
         </div>
 
-        {!showDetails ? (
-          <div className="project-card-copy" key="front">
-            <p className="project-face-label">Featured build</p>
-            <h3>{project.title}</h3>
-            <p className="project-lede">{project.shortDescription}</p>
-            <ul className="tag-list project-tech-preview" aria-label={`${project.title} technologies`}>
-              {project.technologies.map((technology) => (
-                <li key={technology}>{technology}</li>
-              ))}
+        <div className="project-card-copy">
+          <h3 id={`project-title-${project.slug}`}>{project.title}</h3>
+          <p className="project-lede">{project.shortDescription}</p>
+          <p className="project-description">{project.description}</p>
+          {project.highlights?.length ? (
+            <ul className="project-highlights" aria-label={`${project.title} highlights`}>
+              {project.highlights.map((highlight) => <li key={highlight}>{highlight}</li>)}
             </ul>
-          </div>
-        ) : (
-          <div className="project-card-copy project-card-back" key="back">
-            <p className="project-face-label">Behind the build</p>
-            <h3>{project.title}</h3>
-            <div className="project-back-scroll">
-              <p className="project-description">{project.description}</p>
-              {project.highlights?.length ? (
-                <ul className="project-highlights" aria-label={`${project.title} highlights`}>
-                  {project.highlights.map((highlight) => (
-                    <li key={highlight}>{highlight}</li>
-                  ))}
-                </ul>
-              ) : null}
-            </div>
-          </div>
-        )}
+          ) : null}
+          <ul className="tag-list project-tech-preview" aria-label={`${project.title} technologies`}>
+            {project.technologies.map((technology) => <li key={technology}>{technology}</li>)}
+          </ul>
+        </div>
 
         <div className="project-card-actions">
-          <button className="project-flip-button" type="button" onClick={onToggleDetails}>
-            {showDetails ? "Back to summary" : "View details"}
-            <span aria-hidden="true">↻</span>
-          </button>
           <div className="project-links">
             {project.caseStudySlug ? (
               <Link href={`/projects/${project.caseStudySlug}`}>

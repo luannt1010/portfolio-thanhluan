@@ -1,63 +1,26 @@
-"use client";
-
 import Image from "next/image";
-import { useCallback, useEffect, useState } from "react";
+import { ContactIcon } from "@/components/contact-icon";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { ProjectDeck } from "@/components/project-deck";
 import { SectionHeading } from "@/components/section-heading";
+import { ScrollReveal } from "@/components/scroll-reveal";
 import { portfolio } from "@/data/portfolio";
 
-const tabIds = ["home", "about", "experience", "projects", "certificates", "contact"] as const;
-
-type TabId = (typeof tabIds)[number];
-type Direction = "forward" | "backward";
-
-function tabFromHash(hash: string): TabId {
-  const candidate = hash.replace("#", "") as TabId;
-  return tabIds.includes(candidate) ? candidate : "home";
-}
-
 export default function Home() {
-  const [activeTab, setActiveTab] = useState<TabId>("home");
-  const [direction, setDirection] = useState<Direction>("forward");
   const heroWords = portfolio.person.heroTitle.split(" ");
   const heroAccent = heroWords.at(-1);
   const heroLead = heroWords.slice(0, -1).join(" ");
 
-  const activateTab = useCallback((nextTab: TabId, updateHistory = true) => {
-    setActiveTab((currentTab) => {
-      if (currentTab === nextTab) return currentTab;
-      setDirection(tabIds.indexOf(nextTab) > tabIds.indexOf(currentTab) ? "forward" : "backward");
-      return nextTab;
-    });
-
-    if (updateHistory) {
-      window.history.pushState(null, "", `#${nextTab}`);
-    }
-
-    window.requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: "smooth" }));
-  }, []);
-
-  useEffect(() => {
-    const syncTabWithUrl = () => activateTab(tabFromHash(window.location.hash), false);
-    syncTabWithUrl();
-    window.addEventListener("popstate", syncTabWithUrl);
-    window.addEventListener("hashchange", syncTabWithUrl);
-    return () => {
-      window.removeEventListener("popstate", syncTabWithUrl);
-      window.removeEventListener("hashchange", syncTabWithUrl);
-    };
-  }, [activateTab]);
-
-  function navigate(href: string) {
-    activateTab(tabFromHash(href));
-  }
-
-  function renderActivePanel() {
-    if (activeTab === "home") {
-      return (
-        <section className="hero section-shell" id="home-panel" role="tabpanel" aria-labelledby="home-tab">
+  return (
+    <>
+      <Header
+        initials={portfolio.person.initials}
+        navigation={portfolio.navigation}
+        email={portfolio.person.email}
+      />
+      <ScrollReveal>
+        <section className="hero section-shell" id="home">
           <div className="hero-copy">
             <p className="eyebrow hero-enter hero-delay-1">
               <span className="status-dot" /> {portfolio.person.availability}
@@ -69,9 +32,9 @@ export default function Home() {
               {portfolio.person.heroDescription}
             </p>
             <div className="hero-actions hero-enter hero-delay-4">
-              <button className="button button-primary" type="button" onClick={() => navigate("#projects")}>
+              <a className="button button-primary" href="#projects">
                 Explore my work <span aria-hidden="true">↘</span>
-              </button>
+              </a>
               <a className="button button-secondary" href={portfolio.person.resumeUrl} target="_blank" rel="noreferrer">
                 View résumé <span aria-hidden="true">↗</span>
               </a>
@@ -106,12 +69,8 @@ export default function Home() {
             </div>
           </aside>
         </section>
-      );
-    }
 
-    if (activeTab === "about") {
-      return (
-        <section className="content-section section-shell panel-section" id="about-panel" role="tabpanel" aria-labelledby="about-tab">
+        <section className="content-section section-shell" id="about">
           <SectionHeading index="01" eyebrow="About me" title={portfolio.person.aboutTitle} />
           <div className="about-grid">
             <div className="about-copy">
@@ -168,12 +127,8 @@ export default function Home() {
             </div>
           </div>
         </section>
-      );
-    }
 
-    if (activeTab === "experience") {
-      return (
-        <section className="content-section section-shell panel-section" id="experience-panel" role="tabpanel" aria-labelledby="experience-tab">
+        <section className="content-section section-shell" id="experience">
           <SectionHeading index="01" eyebrow="Experience" title="Building useful things with thoughtful teams." />
           <div className="timeline">
             {portfolio.experience.map((experience) => (
@@ -198,12 +153,8 @@ export default function Home() {
             ))}
           </div>
         </section>
-      );
-    }
 
-    if (activeTab === "projects") {
-      return (
-        <section className="content-section section-shell projects-section panel-section" id="projects-panel" role="tabpanel" aria-labelledby="projects-tab">
+        <section className="content-section section-shell projects-section" id="projects">
           <SectionHeading
             index="01"
             eyebrow="Selected projects"
@@ -212,12 +163,8 @@ export default function Home() {
           />
           <ProjectDeck projects={portfolio.projects} />
         </section>
-      );
-    }
 
-    if (activeTab === "certificates") {
-      return (
-        <section className="content-section section-shell panel-section" id="certificates-panel" role="tabpanel" aria-labelledby="certificates-tab">
+        <section className="content-section section-shell" id="certificates">
           <SectionHeading index="01" eyebrow="Certificates" title="Structured learning, applied in the real world." />
           <div className="certificate-grid">
               {portfolio.certificates.map((certificate) => (
@@ -253,55 +200,37 @@ export default function Home() {
             ))}
           </div>
         </section>
-      );
-    }
 
-    return (
-      <section className="contact-section tab-contact" id="contact-panel" role="tabpanel" aria-labelledby="contact-tab">
-        <div className="section-shell contact-shell">
-          <p className="contact-kicker"><span className="status-dot" /> Open to AI opportunities and collaborations</p>
-          <h2>Let&apos;s <em>connect.</em></h2>
-          <p>Feel free to reach out if you would like to discuss an AI project, an internship, or a new opportunity.</p>
-          <div className="contact-grid">
-            {portfolio.contact.map((item) => {
-              const content = (
-                <>
-                  <span className="contact-item-label">{item.label}</span>
-                  <span className="contact-item-value">{item.value}</span>
-                  <span className="contact-item-arrow" aria-hidden="true">{item.href ? "↗" : "•"}</span>
-                </>
-              );
+        <section className="contact-section" id="contact">
+          <div className="section-shell contact-shell">
+            <p className="contact-kicker"><span className="status-dot" /> Open to AI opportunities and collaborations</p>
+            <h2>Let&apos;s <em>connect.</em></h2>
+            <p>Feel free to reach out if you would like to discuss an AI project, an internship, or a new opportunity.</p>
+            <div className="contact-grid">
+              {portfolio.contact.map((item) => {
+                const content = (
+                  <>
+                    <span className="contact-item-icon"><ContactIcon label={item.label} /></span>
+                    <span className="contact-item-copy">
+                      <span className="contact-item-label">{item.label}</span>
+                      <span className="contact-item-value">{item.value}</span>
+                    </span>
+                    <span className="contact-item-arrow" aria-hidden="true">{item.href ? "↗" : "•"}</span>
+                  </>
+                );
 
-              return item.href ? (
-                <a className="contact-item" href={item.href} key={item.label} target={item.href.startsWith("http") ? "_blank" : undefined} rel="noreferrer">
-                  {content}
-                </a>
-              ) : (
-                <div className="contact-item" key={item.label}>{content}</div>
-              );
-            })}
+                return item.href ? (
+                  <a className="contact-item" href={item.href} key={item.label} target={item.href.startsWith("http") ? "_blank" : undefined} rel="noreferrer">
+                    {content}
+                  </a>
+                ) : (
+                  <div className="contact-item" key={item.label}>{content}</div>
+                );
+              })}
+            </div>
           </div>
-        </div>
-      </section>
-    );
-  }
-
-  return (
-    <>
-      <Header
-        initials={portfolio.person.initials}
-        navigation={portfolio.navigation}
-        email={portfolio.person.email}
-        activeTab={activeTab}
-        onNavigate={navigate}
-      />
-
-      <main className="tab-stage">
-        <div className="tab-panel" data-direction={direction} key={activeTab}>
-          {renderActivePanel()}
-        </div>
-      </main>
-
+        </section>
+      </ScrollReveal>
       <Footer name={portfolio.person.name} initials={portfolio.person.initials} socials={portfolio.socials} />
     </>
   );

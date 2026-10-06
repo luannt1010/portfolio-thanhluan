@@ -450,28 +450,6 @@ img {
   border-top: 1px solid var(--line);
 }
 
-.tab-stage {
-  min-height: calc(100svh - 184px);
-  overflow: clip;
-}
-
-.tab-panel {
-  min-height: calc(100svh - 184px);
-}
-
-.tab-panel[data-direction="forward"] {
-  animation: panel-enter-forward 0.58s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-.tab-panel[data-direction="backward"] {
-  animation: panel-enter-backward 0.58s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-.panel-section,
-.tab-contact {
-  min-height: calc(100svh - 184px);
-}
-
 .panel-subsection {
   margin-top: clamp(76px, 10vw, 128px);
   padding-top: clamp(72px, 9vw, 108px);
@@ -1376,16 +1354,33 @@ img {
   min-width: 0;
   padding: 20px 0;
   display: grid;
-  grid-template-columns: 82px minmax(0, 1fr) 20px;
+  grid-template-columns: 44px minmax(0, 1fr) 20px;
   align-items: center;
   gap: 14px;
   border-bottom: 1px solid rgba(243, 240, 233, 0.2);
   transition: color 0.2s ease, padding-left 0.2s ease;
 }
 
-.contact-item:hover {
-  color: #6e8cff;
+a.contact-item:hover,
+a.contact-item:focus-visible {
+  color: #a7c7ff;
   padding-left: 5px;
+}
+
+.contact-item-icon {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  color: currentColor;
+  background: rgba(167, 199, 255, 0.08);
+  border-radius: 12px;
+}
+
+.contact-item-copy {
+  min-width: 0;
+  display: grid;
+  gap: 6px;
 }
 
 .contact-item-label {
@@ -1634,9 +1629,39 @@ img {
   .certificate-visual { height: 210px; }
   .contact-section h2 { font-size: clamp(3.1rem, 15vw, 4.6rem); }
   .contact-grid { grid-template-columns: 1fr; }
-  .contact-item { grid-template-columns: 72px minmax(0, 1fr) 18px; }
+  .contact-item { grid-template-columns: 44px minmax(0, 1fr) 18px; gap: 12px; }
   .footer-shell { padding-block: 28px; }
   .footer-links { gap: 14px; }
+}
+
+.project-list {
+  display: grid;
+  gap: clamp(32px, 5vw, 64px);
+}
+
+.project-list .project-card {
+  min-height: 0;
+}
+
+.project-list .project-card-copy {
+  animation: none;
+}
+
+.project-list .project-description {
+  margin-top: 20px;
+}
+
+.project-list .project-visual > img {
+  position: absolute;
+  inset: 0;
+}
+
+@media (max-width: 800px) {
+  .project-list .project-card { grid-template-rows: auto auto; }
+  .project-list .project-visual { aspect-ratio: 16 / 9; }
+  .project-list .project-content { min-height: 0; }
+  .project-list .project-meta { white-space: normal; }
+  .project-list .project-meta span:last-child { display: block; margin-top: 8px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

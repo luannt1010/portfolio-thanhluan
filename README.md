@@ -114,7 +114,7 @@ Không commit file môi trường, cache hoặc build output. Các thư mục `.
 ```text
 app/
   layout.tsx                    # Metadata, theme bootstrap và root layout
-  page.tsx                      # Portfolio tabs và section composition
+  page.tsx                      # Continuous sections và anchor navigation
   projects/[slug]/              # Dynamic case-study route
 components/
   header.tsx
